@@ -16,6 +16,7 @@ clear all
 close all
 
 %% Parameters
+% Parameters can be varied depending on the dataset properties you want to simulate 
 
 fs = 250;  % Sampling frequency
 time=1; % length of the simulated signal in seconds
@@ -58,7 +59,7 @@ for trial = 1:num_trials
                 s2(start_sync_idx:end_sync_idx) = s2(start_sync_idx:end_sync_idx) + amplitude * sin(2 * pi * f * t(start_sync_idx:end_sync_idx) + phase_sync);
             end
 
-            s2(1:start_sync_idx-1) = s2(1:start_sync_idx-1) + amplitude * sin(2 * pi * f * t(1:start_sync_idx-1) + phase2); %fase due random
+            s2(1:start_sync_idx-1) = s2(1:start_sync_idx-1) + amplitude * sin(2 * pi * f * t(1:start_sync_idx-1) + phase2); 
             s2(end_sync_idx+1:end) = s2(end_sync_idx+1:end) + amplitude * sin(2 * pi * f * t(end_sync_idx+1:end) + phase2);
         
         else
@@ -109,78 +110,4 @@ end
 %% save the results 
 % save('brain_sources_100','brain_sources'); 
 
-%% Plotting one of the repetition
 
-% signal with
-
-figure 
-plot(t,squeeze(brain_sources(1,:,1))); 
-hold on 
-plot(t,squeeze(brain_sources(2,:,1)));
-hold on 
-plot(t, squeeze(brain_sources(3,:,1))); 
-xlabel('time')
-ylabel('amplitude')
-title('simulated sources through sinusoidal model')
-
-%%
-
-figure 
-plot(t,noise(1,:,1)); 
-hold on 
-plot(t,noise(2,:,1));
-hold on 
-plot(t, noise(3,:,1)); 
-xlabel('time')
-ylabel('amplitude')
-title('noise')
-
-%%
-
-figure 
-plot(t,brain_sources_new(1,:,1)); 
-hold on 
-plot(t,brain_sources_new(2,:,1));
-hold on 
-plot(t, brain_sources_new(3,:,1)); 
-xlabel('time')
-ylabel('amplitude')
-title('noisy brain sources')
-
-%% Spettro 
-
-% Plot e spettro del segnale simulato 
-
-[p1, fx]=pwelch(brain_sources_new(1,:,2),[],[],[],fs);
-[p2, fx]=pwelch(brain_sources_new(2,:,2),[],[],[],fs);
-[p3, fx]=pwelch(brain_sources_new(3,:,2),[],[],[],fs);
-
-figure
-plot(fx,10*log(p1))
-hold on 
-plot(fx,10*log(p2))
-hold on 
-plot(fx,10*log(p3))
-xlim([0 50])
-xlabel('frequency')
-ylabel('power')
-title('Welch power spectral density')
-
-%%
-
-[p1, fx]=pwelch(brain_sources(1,:,2),[],[],[],fs);
-[p2, fx]=pwelch(brain_sources(2,:,2),[],[],[],fs);
-[p3, fx]=pwelch(brain_sources(3,:,2),[],[],[],fs);
-
-figure
-plot(fx,10*log(p1))
-hold on 
-plot(fx,10*log(p2))
-hold on 
-plot(fx,10*log(p3))
-xlim([0 50])
-xlabel('frequency')
-ylabel('power')
-title('Welch power spectral density')
-
-%%
