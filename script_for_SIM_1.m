@@ -11,16 +11,20 @@ close all
 % Seed-g: Simulated eeg data generator for testing connectivity 
 % algorithms Sensors 21
 
+% change the path 
 addpath(genpath('C:\Users\marti\OneDrive - Politecnico di Milano\Progetto Dottorato\SEED-G-toolbox-main'));
  
 %% Load of real sources from the toolbox for AR components 
-path='C:\Users\marti\OneDrive - Politecnico di Milano\Progetto Dottorato\SEED-G-toolbox-main\real data\';
+% change the path
+path='C:\Users\marti\OneDrive - Politecnico di Milano\Progetto Dottorato\SEED-G-toolbox-main\real data\'; 
 name='sLOR_cortical_sources.mat'; 
 load([path name]);
 data=EEG.samp; 
 fs=EEG.fSamp; 
 
 %% Parameters 
+% Parameters can be change according to the desired dataset properties 
+
 Nodes=3; % number of nodes 
 p=5; % Order of the model 
 DataLength=250; % Length of the simulated data
@@ -48,11 +52,13 @@ DelayMatrix(3,1)=3;
 DelayMatrix(2,1)=3;
 
 %%
-trans_null=0; % this parameter defines a step transition 
+trans_null=0; % this parameter defines a step transition (see the SEED-G toolbox for further details)
 
 %%
 %%% Time-Varying Implementation Parameters (see SEED-G TOOLBOX for more
 %%% details)
+
+% These lines are taken from the SEED-G toolbox and adapted to our simulated data 
 
 CampIntPerc=[0.5 0.5]; 
 CampInt=round(CampIntPerc*DataLength);
@@ -185,7 +191,7 @@ plot(t,E_gen(:,:,1));
 title('Noise'); 
 
 
-%% Proprietà spettrali 
+%% Spectral properties 
 [p, fx]=pwelch(Y_gen(:,:,1),[],[],[],fs);
 figure
 plot(fx,p)
@@ -209,3 +215,4 @@ save('Model','Model');
 save('ModelDel','ModelDel');
 save('TVmod','TVmod');
 save('Y_gen','Y_gen');
+
