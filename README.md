@@ -1,2 +1,3 @@
-SIM 1 contains the data for simulation 1, which can be obtained through script_for_SIM_1 code. 
-Script_for_SIM_2 permits to generate the second simulated dataset. This is a big file, so it cannot be uploaded. 
+SIM 1: data of simulation 1; script_for_SIM_1: script to generate SIM 1; 
+script_for_SIM_2: script to generate SIM 2. 
+Uploading the data from Simulation 2 was not possible due to excessive file size.
